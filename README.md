@@ -1,3 +1,23 @@
+本项目在原有基础上扩展安装 mongodb集群/kafka集群
+
+## mongodb集群
+### 安装
+1. 请取消`docker-compose.yml`中以下容器的注释:
+    1. `mongodb-rs1` 节点1
+    2. `mongodb-rs2` 节点2
+    3. `mongodb-rs3` 节点3
+    4. `mongodb-rs-init` 初始化容器，对集群进行设置
+2. 正常执行 `docker-compose up`
+3. 等待 `mongodb-rs-init` 容器中的`setup.sh`脚本执行完毕并自动退出
+
+### FAQ
+1. 版本需求：建议mongo版本 >= 4.0
+2. 数据存储目录：`./data/mongo_rs/`
+3. 如何从主机链接集群：使用普通模式连接主节点，`无法通过副本集的模式连接`
+
+
+## 以下为原项目README
+
 DNMP（Docker + Nginx/Openresty + MySQL5,8 + PHP5,7,8 + Redis + ElasticSearch + MongoDB + RabbitMQ）是一款全功能的**LNMP一键安装程序，支持Arm CPU**。
 
 > 使用前最好提前阅读一遍[目录](#目录)，以便快速上手，遇到问题也能及时排除。

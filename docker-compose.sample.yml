@@ -356,6 +356,69 @@ services:
 #    networks:
 #      - default
 
+#  mongodb-rs1:
+#    image: mongo:${MONGODB_RS_VERSION}
+#    container_name: mongodb-rs1
+#    hostname:  mongodb-rs1
+#    environment:
+#      TZ: "$TZ"
+#    volumes:
+#      - ${DATA_DIR}/mongo_rs/rs1/:/data/db:rw
+#    ports:
+#      - "${MONGODB_RS1_HOST_PORT}:27017"
+#    restart: always
+#    networks:
+#      - default
+#    command:
+#      "/usr/bin/mongod --dbpath /data/db --replSet rs0 --oplogSize 1 --bind_ip_all"
+#
+#  mongodb-rs2:
+#    image: mongo:${MONGODB_RS_VERSION}
+#    container_name: mongodb-rs2
+#    hostname:  mongodb-rs2
+#    environment:
+#      TZ: "$TZ"
+#    volumes:
+#      - ${DATA_DIR}/mongo_rs/rs2/:/data/db:rw
+#    ports:
+#      - "${MONGODB_RS2_HOST_PORT}:27017"
+#    restart: always
+#    networks:
+#      - default
+#    command:
+#      "/usr/bin/mongod --dbpath /data/db --replSet rs0 --oplogSize 1 --bind_ip_all"
+#
+#  mongodb-rs3:
+#    image: mongo:${MONGODB_RS_VERSION}
+#    container_name: mongodb-rs3
+#    hostname:  mongodb-rs3
+#    environment:
+#      TZ: "$TZ"
+#    volumes:
+#      - ${DATA_DIR}/mongo_rs/rs3/:/data/db:rw
+#    ports:
+#      - "${MONGODB_RS3_HOST_PORT}:27017"
+#    restart: always
+#    networks:
+#      - default
+#    command:
+#      "/usr/bin/mongod --dbpath /data/db --replSet rs0 --oplogSize 1 --bind_ip_all"
+#
+#  mongodb-rs-init:
+#    image: mongo:${MONGODB_RS_VERSION}
+#    container_name: mongodb-rs-init
+#    hostname: mongodb-rs-init
+#    links:
+#      - mongodb-rs1
+#      - mongodb-rs2
+#      - mongodb-rs3
+#    volumes:
+#      - ./services/mongodb_rs/scripts/:/scripts
+#    restart: on-failure
+#    networks:
+#      - default
+#    entrypoint: "/scripts/setup.sh"
+
 networks:
   default:
     driver: bridge
