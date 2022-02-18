@@ -356,6 +356,8 @@ services:
 #    networks:
 #      - default
 
+# ============ MONGODB_RS
+#
 #  mongodb-rs1:
 #    image: mongo:${MONGODB_RS_VERSION}
 #    container_name: mongodb-rs1
@@ -418,6 +420,129 @@ services:
 #    networks:
 #      - default
 #    entrypoint: "/scripts/setup.sh"
+#
+# ============ MONGODB_RS END
+
+# ============ Kafka
+#
+#  zookeeper-rs1:
+#    image: zookeeper:${ZOOKEEPER_RS_VERSION}
+#    container_name: zookeeper-rs1
+#    hostname: zookeeper-rs1
+#    environment:
+#      ZOO_MY_ID: 1
+#      ZOO_SERVERS: server.1=zookeeper-rs1:2888:3888;2181 server.2=zookeeper-rs2:2888:3888;2181 server.3=zookeeper-rs3:2888:3888;2181
+#      TZ: "$TZ"
+#    volumes:
+#      - ${DATA_DIR}/zookeeper_rs/rs1/:/data/:rw
+#    ports:
+#      - "${ZOOKEEPER_RS1_HOST_PORT}:2181"
+#    restart: always
+#    networks:
+#      - default
+#
+#  zookeeper-rs2:
+#    image: zookeeper:${ZOOKEEPER_RS_VERSION}
+#    container_name: zookeeper-rs2
+#    hostname: zookeeper-rs2
+#    environment:
+#      ZOO_MY_ID: 2
+#      ZOO_SERVERS: server.1=zookeeper-rs1:2888:3888;2181 server.2=zookeeper-rs2:2888:3888;2181 server.3=zookeeper-rs3:2888:3888;2181
+#      TZ: "$TZ"
+#    volumes:
+#      - ${DATA_DIR}/zookeeper_rs/rs2/:/data/:rw
+#    ports:
+#      - "${ZOOKEEPER_RS2_HOST_PORT}:2181"
+#    restart: always
+#    networks:
+#      - default
+#
+#  zookeeper-rs3:
+#    image: zookeeper:${ZOOKEEPER_RS_VERSION}
+#    container_name: zookeeper-rs3
+#    hostname: zookeeper-rs3
+#    environment:
+#      ZOO_MY_ID: 3
+#      ZOO_SERVERS: server.1=zookeeper-rs1:2888:3888;2181 server.2=zookeeper-rs2:2888:3888;2181 server.3=zookeeper-rs3:2888:3888;2181
+#      TZ: "$TZ"
+#    volumes:
+#      - ${DATA_DIR}/zookeeper_rs/rs3/:/data/:rw
+#    ports:
+#      - "${ZOOKEEPER_RS3_HOST_PORT}:2181"
+#    restart: always
+#    networks:
+#      - default
+#
+#  kafka-rs1:
+#    image: wurstmeister/kafka:${KAFKA_RS_VERSION}
+#    container_name: kafka-rs1
+#    hostname: kafka-rs1
+#    environment:
+#      KAFKA_ADVERTISED_HOST_NAME: kafka-rs1
+#      KAFKA_LISTENERS: PLAINTEXT://kafka-rs1:9092
+#      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-rs1:9092
+#      KAFKA_ADVERTISED_PORT: 9092
+#      KAFKA_ZOOKEEPER_CONNECT: zookeeper-rs1:2181,zookeeper-rs2:2181,zookeeper-rs3:2181
+#      TZ: "$TZ"
+#    volumes:
+#      - ${DATA_DIR}/kafka_rs/rs1/:/kafka/:rw
+#    ports:
+#      - "${KAFKA_RS1_HOST_PORT}:9092"
+#    restart: always
+#    networks:
+#      - default
+#    depends_on:
+#      - zookeeper-rs1
+#      - zookeeper-rs2
+#      - zookeeper-rs3
+#
+#  kafka-rs2:
+#    image: wurstmeister/kafka:${KAFKA_RS_VERSION}
+#    container_name: kafka-rs2
+#    hostname: kafka-rs2
+#    environment:
+#      KAFKA_ADVERTISED_HOST_NAME: kafka-rs2
+#      KAFKA_LISTENERS: PLAINTEXT://kafka-rs2:9093
+#      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-rs2:9093
+#      KAFKA_ADVERTISED_PORT: 9093
+#      KAFKA_ZOOKEEPER_CONNECT: zookeeper-rs1:2181,zookeeper-rs2:2181,zookeeper-rs3:2181
+#      TZ: "$TZ"
+#    volumes:
+#      - ${DATA_DIR}/kafka_rs/rs2/:/kafka/:rw
+#    ports:
+#      - "${KAFKA_RS2_HOST_PORT}:9093"
+#    restart: always
+#    networks:
+#      - default
+#    depends_on:
+#      - zookeeper-rs1
+#      - zookeeper-rs2
+#      - zookeeper-rs3
+#
+#  kafka-rs3:
+#    image: wurstmeister/kafka:${KAFKA_RS_VERSION}
+#    container_name: kafka-rs3
+#    hostname: kafka-rs3
+#    environment:
+#      KAFKA_ADVERTISED_HOST_NAME: kafka-rs3
+#      KAFKA_LISTENERS: PLAINTEXT://kafka-rs3:9094
+#      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-rs3:9094
+#      KAFKA_ADVERTISED_PORT: 9094
+#      KAFKA_ZOOKEEPER_CONNECT: zookeeper-rs1:2181,zookeeper-rs2:2181,zookeeper-rs3:2181
+#      TZ: "$TZ"
+#    volumes:
+#      - ${DATA_DIR}/kafka_rs/rs3/:/kafka/:rw
+#    ports:
+#      - "${KAFKA_RS3_HOST_PORT}:9094"
+#    restart: always
+#    networks:
+#      - default
+#    depends_on:
+#      - zookeeper-rs1
+#      - zookeeper-rs2
+#      - zookeeper-rs3
+#
+# ============ Kafka END
 
 networks:
   default:

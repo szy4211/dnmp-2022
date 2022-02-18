@@ -14,7 +14,20 @@
 1. 版本需求：建议mongo版本 >= 4.0
 2. 数据存储目录：`./data/mongo_rs/`
 3. 如何从主机链接集群：使用普通模式连接主节点，`无法通过副本集的模式连接`
+4. `mongodb-rs-init`容器 在部署完集群后续是否还需要：不需要，可以移除
 
+## kafka集群
+### 安装
+1. 请取消`docker-compose.yml`中以下容器的注释:
+    1. `zookeeper-rs1` zookeeper节点1
+    2. `zookeeper-rs2` zookeeper节点2
+    3. `zookeeper-rs3` zookeeper节点3
+    4. `kafka-rs1` kafka节点1
+    5. `kafka-rs2` kafka节点2
+    6. `kafka-rs3` kafka节点3
+2. 正常执行 `docker-compose up`
+
+---
 
 ## 以下为原项目README
 
